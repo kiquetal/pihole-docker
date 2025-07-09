@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    network_mode: "host" # THIS IS THE KEY CHANGE FOR LINUX
+    environment:
+      TZ: 'America/Asuncion' # Set your timezone (e.g., 'America/New_York')
+      WEBPASSWORD: 'my-country' # CHANGE THIS!
+    volumes:
+      - './etc-pihole/:/etc/pihole/'
+      - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    restart: unless-stopped
+    # dns: # No longer needed here if using host mode and your system handles DNS externally
+    #   - 127.0.0.1
+    #   - 1.1.1.1
